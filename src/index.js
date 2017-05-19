@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Lobby from './components/lobby';
-import Room from './components/room';
+import Room from './room/room';
 
 import reducers from './reducers';
 
