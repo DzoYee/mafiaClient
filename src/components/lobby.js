@@ -6,7 +6,6 @@ export default class Lobby extends Component {
   render() {
     return (
       <div>
-        <Counter />
         <HostBar />
       </div>
     )

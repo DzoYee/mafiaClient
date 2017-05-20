@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { hostRoom } from '../actions/index';
 
 class HostBar extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class HostBar extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     console.log("HOSTING DAT STICK");
+    this.props.hostRoom(this.state.term);
     this.setState({term: ''});
   }
   
@@ -29,7 +31,7 @@ class HostBar extends Component {
           value = {this.state.term}
           onChange = {this.onInputChange} />
         <span>
-          <button type="submit">Submit</button>
+          <button type="submit">Host Game</button>
         </span>
       </form>
     );
@@ -37,7 +39,11 @@ class HostBar extends Component {
   
 }
 
-export default HostBar;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ hostRoom }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(HostBar);
 
 // var socket = io.connect('http://localhost');
 //   socket.on('news', function (data) {

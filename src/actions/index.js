@@ -1,15 +1,10 @@
 import axios from 'axios';
+export const HOST_ROOM = 'host_room';
 
-export const FETCH_POSTS = 'fetch_posts';
-
-const ROOT_URL = 'https://reduxblog.herokuapp.com/api';
-const API_KEY = '?key=JOEYDODO';
-
-export function fetchPosts() {
-  const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
-
-  return {
-    type: FETCH_POSTS,
-    payload: request
-  };
+export function hostRoom(roomNumber) {
+  return (dispatch) => {
+    axios.get('http://localhost:3001/dog').then(({data}) => {
+      dispatch({ type: 'FETCH_DOG', payload: data});
+    });
+  }
 }
