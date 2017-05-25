@@ -4,16 +4,25 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { createLogger } from 'redux-logger';
+
 import thunk from 'redux-thunk';
-// import promise from 'redux-promise'
+import io from 'socket.io-client';
+import createSocketIoMiddleware from 'redux-socket.io';
 
 import Lobby from './components/lobby';
 import Room from './room/room';
 
 import reducers from './reducers';
 
-const middleware = applyMiddleware(thunk, createLogger());
+let socket = io('http://localhost:3001');
+let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
+const middleware = applyMiddleware(socketIoMiddleware, thunk, createLogger());
 const store = createStore(reducers, middleware);
+
+store.subscribe(() => {
+  console.log('new client state', store.getState());
+});
+store.dispatch({type:'server/hello/', data:'Hello!'});
 
 ReactDOM.render(
   <Provider store={store}>
