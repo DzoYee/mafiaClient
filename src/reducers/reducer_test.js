@@ -1,11 +1,29 @@
-export default function(state = [], action) {
-  switch(action.type) {
-  case "dog":
-    return [
-      { title: action.payload, pages: 101 },
-      { title: 'Harry Potter', pages: 39 }
-    ];
-  }
+import { HOST_ROOM_START, HOST_ROOM, HOST_ROOM_ERROR } from '../actions/index';
 
-  return state;
+const intialState = {
+  connecting: false,
+  connected: false,
+  users: [],
+  error: null,
+};
+
+export default function(state = {intialState}, action) {
+  switch(action.type) {
+    case HOST_ROOM_START: 
+      return {...state, connecting: true}
+      break;
+    case HOST_ROOM_ERROR: 
+      return {...state, connecting: false, error: action.payload}
+      break;
+    case HOST_ROOM: 
+      return {
+        ...state,
+        connecting: false,
+        connected: true,
+        users: action.payload
+      }
+      break;
+    default:
+      return state;
+  }
 }
