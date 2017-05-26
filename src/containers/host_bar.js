@@ -7,29 +7,43 @@ class HostBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { term: '' };
+    this.state = { 
+      roomCode: '',
+      username: '',
+    };
 
-    this.onInputChange = this.onInputChange.bind(this);
+    this.onRoomInputChange = this.onRoomInputChange.bind(this);
+    this.onUserInputChange = this.onUserInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  onInputChange(event) {
-    this.setState({term: event.target.value});
+  onRoomInputChange(event) {
+    this.setState({roomCode: event.target.value});
+  }
+
+  onUserInputChange(event) {
+    this.setState({username: event.target.value});
   }
 
   onFormSubmit(event) {
     event.preventDefault();
     console.log("HOSTING DAT STICK");
-    this.props.hostRoom(this.state.term);
-    this.setState({term: ''});
+    this.props.hostRoom(this.state.roomCode, this.state.username);
+    this.setState({roomCode: ''});
+    this.setState({username: ''});
   }
   
   render() {
     return (
       <form onSubmit = {this.onFormSubmit}>
         <input 
-          value = {this.state.term}
-          onChange = {this.onInputChange} />
+          placeholder = "Enter Room Code"
+          value = {this.state.roomCode}
+          onChange = {this.onRoomInputChange} />
+        <input 
+          placeholder = "Enter Username"
+          value = {this.state.username}
+          onChange = {this.onUserInputChange} />
         <span>
           <button type="submit">Host Game</button>
         </span>
@@ -44,9 +58,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(HostBar);
-
-// var socket = io.connect('http://localhost');
-//   socket.on('news', function (data) {
-//     console.log(data);
-//     socket.emit('my other event', { my: 'data' });
-//   });
