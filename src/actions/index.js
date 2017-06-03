@@ -1,9 +1,8 @@
 import axios from 'axios';
-export const HOST_ROOM_START = 'host_room_start';
-export const HOST_ROOM = 'server/host_room';
-export const HOST_ROOM_ERROR = 'host_room_error';
+const HOST_ROOM = 'server/host_room';
+const JOIN_ROOM = 'server/join_room';
 
-export function hostRoom(roomName, username) {
+function hostRoom(roomName, username) {
   return (dispatch) => {
     dispatch({
       type: HOST_ROOM,
@@ -14,3 +13,22 @@ export function hostRoom(roomName, username) {
     });
   }
 }
+
+function joinRoom(roomName, username) {
+  return (dispatch) => {
+    dispatch({
+      type: JOIN_ROOM,
+      data: {
+        roomName: roomName,
+        username: username
+      }
+    });
+  }
+}
+
+module.exports = {
+  hostRoom: hostRoom, 
+  joinRoom: joinRoom,
+  HOST_ROOM: HOST_ROOM,
+  JOIN_ROOM: JOIN_ROOM
+};

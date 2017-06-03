@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { hostRoom } from '../actions/index';
+import { hostRoom, joinRoom } from '../actions/index';
 
 class HostBar extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class HostBar extends Component {
     this.onRoomInputChange = this.onRoomInputChange.bind(this);
     this.onUserInputChange = this.onUserInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onJoinRoom = this.onJoinRoom.bind(this);
   }
 
   onRoomInputChange(event) {
@@ -27,8 +28,14 @@ class HostBar extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    console.log("HOSTING DAT STICK");
     this.props.hostRoom(this.state.roomCode, this.state.username);
+    this.setState({roomCode: ''});
+    this.setState({username: ''});
+  }
+
+  onJoinRoom(event) {
+    event.preventDefault();
+    this.props.joinRoom(this.state.roomCode, this.state.username)
     this.setState({roomCode: ''});
     this.setState({username: ''});
   }
@@ -47,6 +54,9 @@ class HostBar extends Component {
         <span>
           <button type="submit">Host Game</button>
         </span>
+        <span>
+          <button type="button" onClick={this.onJoinRoom} >Join Game</button>
+        </span>
       </form>
     );
   }
@@ -54,7 +64,7 @@ class HostBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ hostRoom }, dispatch);
+  return bindActionCreators({ hostRoom, joinRoom }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(HostBar);
