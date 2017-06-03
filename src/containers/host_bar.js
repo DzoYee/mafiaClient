@@ -44,7 +44,7 @@ class HostBar extends Component {
     return (
       <form onSubmit = {this.onFormSubmit}>
         <input 
-          placeholder = "Enter Room Code"
+          placeholder = "Enter Room Name"
           value = {this.state.roomCode}
           onChange = {this.onRoomInputChange} />
         <input 

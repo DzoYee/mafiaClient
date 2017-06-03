@@ -1,5 +1,9 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
     './src/index.js'
   ],
   output: {
@@ -11,10 +15,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015', 'stage-1']
-      }
+      loader: 'react-hot!babel',
     }]
   },
   resolve: {
@@ -22,6 +23,10 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './dist'
-  }
+    contentBase: './dist',
+    hot: true
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
