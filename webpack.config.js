@@ -3,12 +3,13 @@ module.exports = {
     './src/index.js'
   ],
   output: {
-    path: __dirname,
+    path: __dirname + '/dist',
     publicPath: '/',
     filename: 'bundle.js'
   },
   module: {
     loaders: [{
+      test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel',
       query: {
@@ -21,6 +22,6 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    contentBase: './dist'
   }
 };

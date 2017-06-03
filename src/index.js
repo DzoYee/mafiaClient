@@ -52,5 +52,5 @@ ReactDOM.render(
       </div>
     </BrowserRouter>
   </Provider>
-,document.querySelector('.mount'));
+,document.querySelector('#app'));
 
