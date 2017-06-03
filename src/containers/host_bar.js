@@ -52,10 +52,10 @@ class HostBar extends Component {
           value = {this.state.username}
           onChange = {this.onUserInputChange} />
         <span>
-          <button type="submit">Host Game</button>
+          <button type="button" onClick={this.onJoinRoom} >Join Game</button>
         </span>
         <span>
-          <button type="button" onClick={this.onJoinRoom} >Join Game</button>
+          <button type="submit">Host Game</button>
         </span>
       </form>
     );
